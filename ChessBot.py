@@ -1,34 +1,32 @@
 import chess
 import sys
+from anytree import Node
 
+import PieceCount
 
-
-def piece_count(board_str):
-    """Returns piece count of a chess board. Positive value
-indicates white is leading, negative for black.
-Accepts Forsyth-Edwards Notation for a board position"""
-    x = 0
-    board_str[:board_str.index(' ')]
-    for char in board_str:
-        if !char.isalpha():
-            continue
-        if char.isupper():
-            if char == 'P':
-                x += 1
-            elif char == 'R':
-                x += 5
-            elif char == 'B' or char == 'N':
-                x += 3
-            elif char == 'Q':
-                x += 9
+class ChessBot:
+    """
+This is a chess bot.
+"""
+    def __init__(self,color):
+        """ Initializes the bot as the black or white player.
+Initializes the root of the tree for the move possibilities
+"""
+        if color == 'w':
+            self.color = "W"
         else:
-            if char == 'p':
-	        x -= 1
-            elif char == 'r':
-	        x -= 5
-            elif char == 'b' or char == 'n':
-                x -= 3
-            elif char == 'q':
-	        x -= 9
-    return x
+            self.color = "B"
 
+        self.board = chess.Board()
+        root = Node(chess.STARTING_FEN, count = 0)
+
+    def play(self,board_str):
+        """ Given the board_fen, returns a move in SAN notation
+"""
+        self.board.set_fen(board_str)
+        for move in self.board.legal_moves:
+            #self.board.push_uci(move)
+            x = piece_count(self.board.board_fen())
+            print(x)
+            break
+        return move
