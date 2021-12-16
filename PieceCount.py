@@ -23,12 +23,12 @@ Accepts Forsyth-Edwards Notation for a board position"""
                 x += 9
         else:
             if char == 'p':
-	        x -= 1
+                x -= 1
             elif char == 'r':
-	        x -= 5
+                x -= 5
             elif char == 'b' or char == 'n':
                 x -= 3
             elif char == 'q':
-	        x -= 9
+                x -= 9
     return x
 
