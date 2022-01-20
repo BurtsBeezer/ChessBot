@@ -9,6 +9,13 @@ indicates white is leading, negative for black.
 Accepts Forsyth-Edwards Notation for a board position"""
     x = 0
     #board_str[:board_str.index(' ')]
+    if (board.is_checkmate()):
+        for char in board_str:
+            if char == 'w':
+                return 1000
+        return -1000
+    if board.is_stalemate():
+        return 0
     for char in board_str:
         if not(char.isalpha()):
             continue

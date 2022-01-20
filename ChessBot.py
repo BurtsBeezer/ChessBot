@@ -26,20 +26,46 @@ Initializes the root of the tree for the move possibilities
         """ Given the board_fen, returns a move in SAN notation
 """
         self.board.set_fen(board_str)
-        max_x, min_x = 0, 0
+        max_x = 0
         for move in self.board.legal_moves:
-            max_move, min_move = move, move
+            max_move = move
+            break
         for move in self.board.legal_moves:
             self.board.push(move)
             x = piece_count(self.board.board_fen())
             if x >= max_x:
                 max_x = x
                 max_move = move
-            if x <= min_x:
-                min_x = x
-                min_move = move
-            self.move_tree[chess.STARTING_FEN][1][self.board.board_fen()] = (x, move)
-            self.board.pop()
+            #self.move_tree[chess.STARTING_FEN][1][self.board.board_fen()] = (x, move)
+            #self.board.pop()
+
+        # black's move
+        
+        #for move in self.move_tree[chess.STARTING_FEN][1][self.board.board.fen()][1]:
+         #   self.board.push(move)
+         #   for move2 in self.board.legal_moves:
+          #      self.board.push(move)
+           #     x = piece_count(self.board.board.fen())
+                
+
+
+
+            
+            #self.board.pop(move)
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
         if self.color == "W":
             return max_move
         else:
