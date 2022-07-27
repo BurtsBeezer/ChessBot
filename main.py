@@ -1,10 +1,10 @@
-import chess
 import sys
+import chess
 
 import ChessBot
 
-bot1 = ChessBot.ChessBot('w')
+p1 = ChessBot.Bot(max_depth = 2)
 
-move = bot1.play(chess.STARTING_FEN)
+best_move = p1.find_best_move()
 
-print(move)
+print(best_move)
