@@ -38,23 +38,24 @@ Bot with white pieces.
     def Max(self):
 
         # if no legal moves: (TODO)
+        # must be either white checkmated or stalemate
+        if self.board.is_checkmate():
+            return -2000
+        if self.board.is_stalemate():
+            return 0
 
-
-
-
-
-        
-        for m in self.board.legal_moves:
-            max_move = m
-            break
+        max_move = get_a_move(board)
+        #for m in self.board.legal_moves:
+            #max_move = m
+            #break
         max_count = check_move(self.board, max_move)
     
         for move in self.board.legal_moves:
             count = check_move(self.board, move)
             if count > max_count:
                 max_count = count
-                max_move = move
-        return max_move, max_count
+                #max_move = move
+        return max_count
     
 class BlackBot(Bot):
     """
@@ -64,37 +65,41 @@ Bot with black pieces.
     def Min(self):
 
         # if no legal moves: (TODO)
+        # must be either black checkmated or stalemate
+        if self.board.is_checkmate():
+            return 2000
+        if self.board.is_stalemate():
+            return 0
 
-
-
-        
-        for m in self.board.legal_moves:
-            min_move = m
-            break
+        min_move = get_a_move(self.board)
+        #for m in self.board.legal_moves:
+         #  min_move = m
+         #   break
         min_count = check_move(self.board, min_move)
         
         for move in self.board.legal_moves:
             count = check_move(self.board, move)
             if count < min_count:
                 min_count = count
-                min_move = move
-        return min_move, min_count
+                #min_move = move
+        return min_count
 
 def w_minimax(board, max_depth, cur_depth = 0):
     cur_depth += 1
     if cur_depth == max_depth:
         # check for move that maximizes count after one white and black move
-        for m in board.legal_moves:
-            cur_best_move = m
-            break
+        cur_best_move = get_a_move(board)
+        #for m in board.legal_moves:
+         #   cur_best_move = m
+          #  break
         bbot = BlackBot("b", board)
         bbot.board.push(cur_best_move)
-        _, cur_best_count = bbot.Min()
+        cur_best_count = bbot.Min()
         bbot.board.pop()
         
         for move in board.legal_moves:
             bbot.board.push(move)
-            _, count = bbot.Min()
+            count = bbot.Min()
             bbot.board.pop()
             if count > cur_best_count:
                 cur_best_count = count
@@ -103,9 +108,10 @@ def w_minimax(board, max_depth, cur_depth = 0):
 
     if cur_depth < max_depth:
         # do w_minimax for all board positions after one white + black move
-        for m in board.legal_moves:
-            cur_best_move = m
-            break
+        cur_best_move = get_a_move(board)
+        #for m in board.legal_moves:
+         #   cur_best_move = m
+          #  break
         board.push(cur_best_move)
         cur_best_count = -2000
         for move in board.legal_moves:
@@ -134,17 +140,18 @@ def b_minimax(board, max_depth, cur_depth = 0):
     cur_depth += 1
     if cur_depth == max_depth:
         # check for move that maximizes count after one black and white move
-        for m in board.legal_moves:
-            cur_best_move = m
-            break
+        cur_best_move = get_a_move(board)
+        #for m in board.legal_moves:
+         #   cur_best_move = m
+          #  break
         wbot = WhiteBot("w", board)
         wbot.board.push(cur_best_move)
-        _, cur_best_count = wbot.Max()
+        cur_best_count = wbot.Max()
         wbot.board.pop()
         
         for move in board.legal_moves:
             wbot.board.push(move)
-            _, count = wbot.Max()
+            count = wbot.Max()
             wbot.board.pop()
             if count < cur_best_count:
                 cur_best_count = count
@@ -153,9 +160,10 @@ def b_minimax(board, max_depth, cur_depth = 0):
 
     if cur_depth < max_depth:
         # do b_minimax for all board positions after one black + white move
-        for m in board.legal_moves:
-            cur_best_move = m
-            break
+        cur_best_move = get_a_move(board)
+        #for m in board.legal_moves:
+         #   cur_best_move = m
+          #  break
         board.push(cur_best_move)
         cur_best_count = 2000
         for move in board.legal_moves:
