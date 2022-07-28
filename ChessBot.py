@@ -6,7 +6,7 @@ class Bot:
     """
 This is a chess bot. It is the parent class of a white and black bot.
 """
-    def __init__(self, color="w", board=chess.Board(), max_depth = 2):
+    def __init__(self, color="w", board=chess.Board(), max_depth = 1):
         """
         Initializes the bot as the white or black player.
         """
@@ -26,8 +26,10 @@ This is a chess bot. It is the parent class of a white and black bot.
         This is done with a minimax strategy.
         max_depth: max search depth, d=1 means one move for each
         """
-
         return minimax(self.board, self.max_depth, self.color)
+
+    def play(self):
+        return find_best_move()
 
 class WhiteBot(Bot):
     """
